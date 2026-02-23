@@ -5,11 +5,9 @@ export function AppHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  const toggleTheme = () => {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    document.documentElement.classList.toggle("dark", next === "dark");
-    setMenuOpen(false);
+  const setThemeTo = (t: "light" | "dark") => {
+    setTheme(t);
+    document.documentElement.classList.toggle("dark", t === "dark");
   };
 
   return (
@@ -42,14 +40,34 @@ export function AppHeader() {
           {menuOpen && (
             <>
               <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
-              <div className="absolute right-0 mt-2 w-44 rounded-xl glass border border-border/60 shadow-xl z-50 py-1.5 animate-fade-up" style={{ animationDuration: "0.15s" }}>
-                <button
-                  onClick={toggleTheme}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-accent/60 transition-colors"
-                >
-                  {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
-                  {theme === "light" ? "Dark Mode" : "Light Mode"}
-                </button>
+              <div className="absolute right-0 mt-2 w-48 rounded-xl bg-card border border-border shadow-xl z-50 py-1.5 animate-fade-up" style={{ animationDuration: "0.15s" }}>
+                {/* Theme toggle row */}
+                <div className="px-4 py-2.5 flex items-center justify-between">
+                  <span className="text-sm text-foreground font-medium">Theme</span>
+                  <div className="flex items-center bg-muted rounded-lg p-0.5">
+                    <button
+                      onClick={() => setThemeTo("light")}
+                      className={`p-1.5 rounded-md transition-all duration-200 ${
+                        theme === "light"
+                          ? "bg-surface text-primary shadow-sm"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Sun size={14} />
+                    </button>
+                    <button
+                      onClick={() => setThemeTo("dark")}
+                      className={`p-1.5 rounded-md transition-all duration-200 ${
+                        theme === "dark"
+                          ? "bg-surface text-primary shadow-sm"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <Moon size={14} />
+                    </button>
+                  </div>
+                </div>
+                <div className="h-px bg-border mx-2" />
                 <button
                   onClick={() => setMenuOpen(false)}
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-destructive hover:bg-accent/60 transition-colors"
