@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,81 +6,64 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 220 20% 10%;
+    --background: 220 30% 98%;
+    --foreground: 220 25% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    --card-foreground: 220 25% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+    --popover-foreground: 220 25% 8%;
 
     --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 220 20% 10%;
+    --secondary: 220 20% 96%;
+    --secondary-foreground: 220 25% 8%;
 
-    --muted: 210 16% 93%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 220 16% 93%;
+    --muted-foreground: 220 10% 46%;
 
-    --accent: 210 20% 96%;
-    --accent-foreground: 220 20% 10%;
+    --accent: 220 20% 96%;
+    --accent-foreground: 220 25% 8%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
     --ring: 221 83% 53%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Custom tokens */
     --surface: 0 0% 100%;
-    --badge-amber-bg: 45 93% 94%;
-    --badge-amber-text: 32 81% 29%;
-    --badge-amber-border: 40 70% 82%;
-    --sidebar-width: 280px;
-    --sidebar-width-collapsed: 56px;
+
+    /* Category colors */
+    --cat-risk-from: 38 92% 50%;
+    --cat-risk-to: 25 95% 53%;
+    --cat-recommend-from: 174 70% 45%;
+    --cat-recommend-to: 188 85% 52%;
+    --cat-chatbot-from: 263 70% 58%;
+    --cat-chatbot-to: 292 84% 61%;
+    --cat-workflow-from: 221 83% 53%;
+    --cat-workflow-to: 250 70% 56%;
+
+    /* Badge */
+    --badge-gold-from: 38 92% 50%;
+    --badge-gold-to: 32 95% 44%;
+
+    /* Glass */
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 0 0% 100% / 0.5;
+    --glass-blur: 20px;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 9% 46%;
+    --sidebar-foreground: 220 10% 46%;
     --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 20% 96%;
-    --sidebar-accent-foreground: 220 20% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 221 83% 53%;
-  }
-
-  .dark {
-    --background: 220 20% 10%;
-    --foreground: 210 20% 98%;
-    --card: 220 18% 14%;
-    --card-foreground: 210 20% 98%;
-    --popover: 220 18% 14%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 220 14% 20%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 220 14% 20%;
-    --muted-foreground: 215 16% 57%;
-    --accent: 220 14% 20%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 220 14% 20%;
-    --input: 220 14% 20%;
-    --ring: 221 83% 53%;
-    --sidebar-background: 220 18% 12%;
-    --sidebar-foreground: 215 16% 57%;
-    --sidebar-primary: 221 83% 53%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 18%;
-    --sidebar-accent-foreground: 210 20% 98%;
-    --sidebar-border: 220 14% 20%;
+    --sidebar-accent: 220 20% 96%;
+    --sidebar-accent-foreground: 220 25% 8%;
+    --sidebar-border: 220 20% 90%;
     --sidebar-ring: 221 83% 53%;
   }
 }
@@ -94,4 +77,92 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+}
+
+/* Mesh gradient background */
+.mesh-bg {
+  background: 
+    radial-gradient(ellipse 80% 60% at 10% 20%, hsl(221 83% 53% / 0.06), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 70%, hsl(263 70% 58% / 0.05), transparent),
+    radial-gradient(ellipse 70% 60% at 50% 10%, hsl(188 85% 52% / 0.04), transparent),
+    hsl(220 30% 98%);
+}
+
+/* Glass effect */
+.glass {
+  background: hsl(var(--glass-bg));
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-color: hsl(var(--glass-border));
+}
+
+/* Category gradient backgrounds */
+.cat-risk-gradient {
+  background: linear-gradient(135deg, hsl(38 92% 50%), hsl(25 95% 53%));
+}
+.cat-recommend-gradient {
+  background: linear-gradient(135deg, hsl(174 70% 45%), hsl(188 85% 52%));
+}
+.cat-chatbot-gradient {
+  background: linear-gradient(135deg, hsl(263 70% 58%), hsl(292 84% 61%));
+}
+.cat-workflow-gradient {
+  background: linear-gradient(135deg, hsl(221 83% 53%), hsl(250 70% 56%));
+}
+
+/* Glow shadows per category */
+.glow-risk {
+  box-shadow: 0 4px 20px -4px hsl(38 92% 50% / 0.25), 0 1px 3px hsl(0 0% 0% / 0.04);
+}
+.glow-risk-hover {
+  box-shadow: 0 8px 30px -4px hsl(38 92% 50% / 0.4), 0 2px 6px hsl(0 0% 0% / 0.06);
+}
+.glow-recommend {
+  box-shadow: 0 4px 20px -4px hsl(174 70% 45% / 0.25), 0 1px 3px hsl(0 0% 0% / 0.04);
+}
+.glow-recommend-hover {
+  box-shadow: 0 8px 30px -4px hsl(174 70% 45% / 0.4), 0 2px 6px hsl(0 0% 0% / 0.06);
+}
+.glow-chatbot {
+  box-shadow: 0 4px 20px -4px hsl(263 70% 58% / 0.25), 0 1px 3px hsl(0 0% 0% / 0.04);
+}
+.glow-chatbot-hover {
+  box-shadow: 0 8px 30px -4px hsl(263 70% 58% / 0.4), 0 2px 6px hsl(0 0% 0% / 0.06);
+}
+.glow-workflow {
+  box-shadow: 0 4px 20px -4px hsl(221 83% 53% / 0.25), 0 1px 3px hsl(0 0% 0% / 0.04);
+}
+.glow-workflow-hover {
+  box-shadow: 0 8px 30px -4px hsl(221 83% 53% / 0.4), 0 2px 6px hsl(0 0% 0% / 0.06);
+}
+
+/* Badge gold gradient */
+.badge-gold {
+  background: linear-gradient(135deg, hsl(38 92% 50%), hsl(32 95% 44%));
+}
+
+/* Pulse animation for CTA */
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(221 83% 53% / 0.4); }
+  50% { box-shadow: 0 0 0 8px hsl(221 83% 53% / 0); }
+}
+.cta-pulse {
+  animation: cta-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Active nav glow */
+.nav-glow {
+  box-shadow: 0 0 16px -2px hsl(221 83% 53% / 0.35);
+  background: hsl(221 83% 53% / 0.1);
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, hsl(220 20% 93%) 25%, hsl(220 20% 96%) 50%, hsl(220 20% 93%) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
 }
