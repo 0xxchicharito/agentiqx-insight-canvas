@@ -4,10 +4,7 @@ import {
   Plus,
   MoreHorizontal,
   FileText,
-  Home,
   Settings,
-  BarChart3,
-  Users,
 } from "lucide-react";
 
 interface Project {
@@ -22,11 +19,9 @@ const projects: Project[] = [
 ];
 
 const navItems = [
-  { icon: Home, label: "Home" },
   { icon: Layers, label: "Projects", active: true },
-  { icon: BarChart3, label: "Analytics" },
-  { icon: Users, label: "Team" },
   { icon: Settings, label: "Settings" },
+  { icon: FileText, label: "Docs" },
 ];
 
 export function AppSidebar() {
