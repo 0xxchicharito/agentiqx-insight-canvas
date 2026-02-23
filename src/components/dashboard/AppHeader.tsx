@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Bell, Sparkles, Sun, Moon, LogOut } from "lucide-react";
+import { Bell, Sun, Moon, LogOut } from "lucide-react";
+import agentiqxLogo from "@/assets/agentiqx-logo.png";
 
 export function AppHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,13 +14,8 @@ export function AppHeader() {
   return (
     <header className="h-16 glass border-b flex items-center justify-between px-6 sticky top-0 z-30">
       {/* Logo */}
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg cat-workflow-gradient flex items-center justify-center">
-          <Sparkles size={16} className="text-primary-foreground" />
-        </div>
-        <span className="text-xl font-bold tracking-tight text-foreground">
-          agent<span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">IQX</span>
-        </span>
+      <div className="flex items-center">
+        <img src={agentiqxLogo} alt="AgentIQX" className="h-8 dark:invert" />
       </div>
 
       {/* Right Actions */}
