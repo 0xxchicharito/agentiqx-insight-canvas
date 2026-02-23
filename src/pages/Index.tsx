@@ -4,9 +4,9 @@ import { FlowList } from "@/components/dashboard/FlowList";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen mesh-bg flex flex-col">
       <AppHeader />
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         <AppSidebar />
         <FlowList />
       </div>
