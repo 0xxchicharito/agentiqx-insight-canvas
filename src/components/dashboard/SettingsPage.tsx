@@ -14,6 +14,7 @@ import {
   Headphones,
   Phone,
   User,
+  Plus,
   Lock,
   ImagePlus,
   Sparkles,
@@ -322,7 +323,56 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
             </motion.div>
           )}
 
-          {activeSection !== "general" && (
+          {activeSection === "mcp" && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6"
+            >
+              {/* MCP Banner */}
+              <div className="rounded-2xl overflow-hidden relative settings-banner-gradient">
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-3xl -top-10 -right-10" />
+                  <div className="absolute w-36 h-36 rounded-full bg-white/5 blur-3xl bottom-0 left-[20%]" />
+                </div>
+                <div className="relative z-10 px-7 py-6 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                      <Server size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-white font-bold text-xl tracking-tight">MCP Servers</h2>
+                      <p className="text-white/90 text-[13px] mt-0.5">
+                        Manage MCP servers used in your flows.
+                      </p>
+                    </div>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="h-10 px-5 rounded-xl bg-white text-primary text-[13px] font-semibold shadow-lg flex items-center gap-2 hover:bg-white/90 transition-colors"
+                  >
+                    <Plus size={16} />
+                    Add MCP Server
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* Empty state */}
+              <div className="rounded-2xl border-2 border-dashed border-border/60 bg-card/50 min-h-[400px] flex flex-col items-center justify-center text-center p-10">
+                <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mb-5">
+                  <Server size={28} className="text-muted-foreground/30" />
+                </div>
+                <h3 className="text-base font-semibold text-foreground mb-1">No MCP server added</h3>
+                <p className="text-[13px] text-muted-foreground">
+                  Start adding <span className="text-primary font-medium cursor-pointer hover:underline">New MCP server</span>
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {activeSection !== "general" && activeSection !== "mcp" && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
