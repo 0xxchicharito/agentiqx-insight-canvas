@@ -292,3 +292,15 @@
 .badge-pop {
   animation: badge-pop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
+
+/* Settings banner animated gradient */
+@keyframes settings-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.settings-banner-gradient {
+  background: linear-gradient(135deg, hsl(211 100% 50%), hsl(211 100% 44%), hsl(221 90% 52%), hsl(211 100% 50%));
+  background-size: 300% 300%;
+  animation: settings-gradient-shift 6s ease-in-out infinite;
+}
