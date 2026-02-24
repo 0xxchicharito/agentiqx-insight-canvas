@@ -543,7 +543,93 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
             </motion.div>
           )}
 
-          {activeSection !== "general" && activeSection !== "mcp" && activeSection !== "apikeys" && activeSection !== "variables" && (
+          {activeSection === "shortcuts" && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6"
+            >
+              {/* Shortcuts Banner */}
+              <div className="rounded-2xl overflow-hidden relative settings-banner-gradient">
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-3xl -top-10 -right-10" />
+                  <div className="absolute w-36 h-36 rounded-full bg-white/5 blur-3xl bottom-0 left-[20%]" />
+                </div>
+                <div className="relative z-10 px-7 py-6 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                      <Keyboard size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-white font-bold text-xl tracking-tight">Shortcuts</h2>
+                      <p className="text-white/90 text-[13px] mt-0.5">
+                        Manage shortcuts for quick access to frequently used actions.
+                      </p>
+                    </div>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.04, y: -1 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="h-10 px-5 rounded-xl bg-white text-primary text-[13px] font-semibold shadow-lg flex items-center gap-2 hover:bg-white/90 transition-colors duration-200 cta-pulse-white flex-shrink-0"
+                  >
+                    <RotateCcw size={16} />
+                    Restore
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* Shortcuts Table */}
+              <div className="rounded-2xl border border-border/50 bg-card overflow-hidden shadow-sm">
+                <table className="w-full text-[13px]">
+                  <thead>
+                    <tr className="border-b border-border/50 bg-muted/30">
+                      <th className="px-6 py-3 text-left font-semibold text-foreground/70 w-[55%]">Functionality</th>
+                      <th className="px-6 py-3 text-left font-semibold text-foreground/70">Keyboard Shortcut</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ["Controls", "Ctrl ⇧ A"],
+                      ["Search Components on Sidebar", "/"],
+                      ["Minimize", "Ctrl ."],
+                      ["Code", "SPACE"],
+                      ["Copy", "Ctrl C"],
+                      ["Duplicate", "Ctrl D"],
+                      ["Component Share", "Ctrl ⇧ S"],
+                      ["Docs", "Ctrl ⇧ D"],
+                      ["Changes Save", "Ctrl S"],
+                      ["Save Component", "Ctrl ALT S"],
+                      ["Delete", "BACKSPACE"],
+                      ["Open Playground", "Ctrl K"],
+                      ["Undo", "Ctrl Z"],
+                      ["Redo", "Ctrl Y"],
+                      ["Redo (alternative)", "Ctrl ⇧ Z"],
+                      ["Group", "Ctrl G"],
+                      ["Cut", "Ctrl X"],
+                      ["Paste", "Ctrl V"],
+                      ["API", "R"],
+                      ["Download", "Ctrl J"],
+                      ["Update", "Ctrl U"],
+                      ["Freeze", "Ctrl ⇧ F"],
+                      ["Flow Share", "Ctrl ⇧ B"],
+                      ["Play", "P"],
+                      ["Output Inspection", "O"],
+                      ["Tool Mode", "Ctrl ⇧ M"],
+                      ["Toggle Sidebar", "Ctrl B"],
+                    ].map(([func, shortcut], i) => (
+                      <tr key={i} className="border-b border-border/20 hover:bg-muted/20 transition-colors">
+                        <td className="px-6 py-3 font-medium text-primary">{func}</td>
+                        <td className="px-6 py-3 text-muted-foreground font-mono text-[12px]">{shortcut}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </motion.div>
+          )}
+
+          {activeSection !== "general" && activeSection !== "mcp" && activeSection !== "apikeys" && activeSection !== "variables" && activeSection !== "shortcuts" && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
