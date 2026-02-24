@@ -6,7 +6,16 @@ import {
   MoreHorizontal,
   Settings,
   FileText,
+  Pencil,
+  Download,
+  Trash2,
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface Project {
   id: string;
@@ -113,10 +122,27 @@ export function AppSidebar() {
                 </div>
                 <span className="truncate">{project.name}</span>
               </div>
-              <MoreHorizontal
-                size={14}
-                className="opacity-0 group-hover:opacity-60 transition-opacity text-muted-foreground flex-shrink-0"
-              />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                  <div className="opacity-0 group-hover:opacity-60 transition-opacity text-muted-foreground flex-shrink-0 cursor-pointer p-0.5 rounded hover:bg-accent/50">
+                    <MoreHorizontal size={14} />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  <DropdownMenuItem className="gap-2 cursor-pointer">
+                    <Pencil size={14} />
+                    Rename
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="gap-2 cursor-pointer">
+                    <Download size={14} />
+                    Download
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="gap-2 cursor-pointer text-destructive focus:text-destructive">
+                    <Trash2 size={14} />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </motion.button>
           );
         })}
