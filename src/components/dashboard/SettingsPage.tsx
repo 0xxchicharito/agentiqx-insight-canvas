@@ -133,7 +133,7 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
                   </div>
                   <div>
                     <h2 className="text-white font-bold text-xl tracking-tight">General</h2>
-                    <p className="text-white/60 text-[13px] mt-0.5">
+                    <p className="text-white/90 text-[13px] mt-0.5">
                       Manage your account and AgentIQX preferences in one place.
                     </p>
                   </div>
