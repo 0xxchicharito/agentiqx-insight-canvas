@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Layers,
+  Upload,
   Plus,
   MoreHorizontal,
   Settings,
@@ -84,11 +85,20 @@ export function AppSidebar() {
         <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground/70">
           Projects
         </span>
-        <button
-          className="p-1 rounded-md hover:bg-accent text-muted-foreground/60 hover:text-primary transition-all duration-150 ease-out will-change-transform hover:rotate-90 hover:scale-110 active:scale-90"
-        >
-          <Plus size={13} strokeWidth={2.5} />
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            className="p-1 rounded-md hover:bg-accent text-muted-foreground/60 hover:text-primary transition-all duration-150 ease-out"
+            title="Upload flow"
+          >
+            <Upload size={13} strokeWidth={2.5} />
+          </button>
+          <button
+            className="p-1 rounded-md hover:bg-accent text-muted-foreground/60 hover:text-primary transition-all duration-150 ease-out will-change-transform hover:rotate-90 hover:scale-110 active:scale-90"
+            title="New project"
+          >
+            <Plus size={13} strokeWidth={2.5} />
+          </button>
+        </div>
       </motion.div>
 
       {/* Project List */}
