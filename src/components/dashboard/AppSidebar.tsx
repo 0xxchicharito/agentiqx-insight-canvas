@@ -6,10 +6,6 @@ import {
   MoreHorizontal,
   Settings,
   FileText,
-  HelpCircle,
-  Zap,
-  ExternalLink,
-  ChevronRight,
 } from "lucide-react";
 
 interface Project {
@@ -45,8 +41,6 @@ const itemVariants = {
 
 export function AppSidebar() {
   const [activeProject, setActiveProject] = useState("1");
-
-  const usagePercent = 68;
 
   return (
     <motion.aside
@@ -89,7 +83,7 @@ export function AppSidebar() {
         </motion.button>
       </motion.div>
 
-      <nav className="px-3 space-y-0.5 overflow-y-auto">
+      <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
         {projects.map((project) => (
           <motion.button
             key={project.id}
@@ -120,77 +114,6 @@ export function AppSidebar() {
           </motion.button>
         ))}
       </nav>
-
-      {/* Spacer */}
-      <div className="flex-1" />
-
-      {/* Usage Card */}
-      <motion.div variants={itemVariants} className="mx-4 mb-3">
-        <div className="rounded-xl border border-border/60 bg-accent/30 p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg cat-workflow-gradient flex items-center justify-center">
-                <Zap size={14} className="text-primary-foreground" />
-              </div>
-              <span className="text-xs font-semibold text-foreground">API Usage</span>
-            </div>
-            <span className="text-xs font-bold text-primary">{usagePercent}%</span>
-          </div>
-          {/* Progress bar */}
-          <div className="w-full h-1.5 rounded-full bg-muted overflow-hidden mb-2">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${usagePercent}%` }}
-              transition={{ duration: 1, delay: 0.5, ease: "easeOut" as const }}
-              className="h-full rounded-full cat-workflow-gradient"
-            />
-          </div>
-          <p className="text-[10px] text-muted-foreground">
-            6,800 / 10,000 requests this month
-          </p>
-        </div>
-      </motion.div>
-
-      {/* Quick Links */}
-      <motion.div variants={itemVariants} className="mx-4 mb-3">
-        <div className="rounded-xl border border-border/60 bg-accent/30 p-3 space-y-1">
-          <motion.button
-            whileHover={{ x: 3 }}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-all duration-200 group"
-          >
-            <div className="flex items-center gap-2.5">
-              <HelpCircle size={14} />
-              <span>Help & Support</span>
-            </div>
-            <ChevronRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-          </motion.button>
-          <motion.button
-            whileHover={{ x: 3 }}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-all duration-200 group"
-          >
-            <div className="flex items-center gap-2.5">
-              <ExternalLink size={14} />
-              <span>API Reference</span>
-            </div>
-            <ChevronRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-          </motion.button>
-        </div>
-      </motion.div>
-
-      {/* Upgrade CTA */}
-      <motion.div variants={itemVariants} className="mx-4 mb-4">
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full rounded-xl cat-chatbot-gradient p-3.5 text-primary-foreground text-center shadow-lg"
-        >
-          <div className="flex items-center justify-center gap-2">
-            <Zap size={14} />
-            <span className="text-xs font-bold uppercase tracking-wide">Upgrade to Pro</span>
-          </div>
-          <p className="text-[10px] mt-1 opacity-80">Unlock unlimited flows & agents</p>
-        </motion.button>
-      </motion.div>
     </motion.aside>
   );
 }
