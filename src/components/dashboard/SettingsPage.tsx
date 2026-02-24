@@ -102,9 +102,7 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
                     : "text-foreground/65 hover:bg-muted/50 hover:text-foreground font-medium"
                 }`}
               >
-                <div className={`w-7 h-7 rounded-lg ${item.gradient} flex items-center justify-center flex-shrink-0 shadow-sm transition-transform duration-200 group-hover:scale-110`}>
-                  <item.icon size={14} className="text-white" strokeWidth={2} />
-                </div>
+                <item.icon size={18} strokeWidth={1.6} className={isActive ? "text-primary" : "text-muted-foreground"} />
                 {item.label}
               </button>
             );
