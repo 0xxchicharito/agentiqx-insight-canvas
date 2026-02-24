@@ -36,7 +36,7 @@ export function AppHeader() {
           className="p-2.5 rounded-xl glass border hover:border-primary/30 text-muted-foreground hover:text-foreground transition-colors duration-200 relative"
         >
           <Bell size={18} />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full cat-chatbot-gradient badge-pop" />
+          
         </motion.button>
 
         {/* Avatar with dropdown */}
