@@ -57,12 +57,12 @@ export function AppHeader() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -8, scale: 0.95 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="absolute right-0 mt-2 w-48 rounded-xl bg-card border border-border shadow-xl z-50 py-1.5"
+                  className="absolute right-0 mt-2 w-56 rounded-xl bg-card border border-border shadow-xl z-50 py-1.5"
                 >
                   {/* Version row */}
-                  <div className="px-4 py-2.5 flex items-center justify-between">
-                    <span className="text-sm text-foreground font-medium">Version</span>
-                    <span className="text-xs font-medium text-primary">0.5.0.post2 (latest)</span>
+                  <div className="px-4 py-2 flex items-center justify-between gap-3">
+                    <span className="text-[13px] text-muted-foreground">Version</span>
+                    <span className="text-[13px] font-medium text-primary whitespace-nowrap">0.5.0.post2 (latest)</span>
                   </div>
                   <div className="h-px bg-border mx-2" />
                   {/* Theme toggle row */}
