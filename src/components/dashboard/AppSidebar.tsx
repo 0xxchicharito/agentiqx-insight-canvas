@@ -30,10 +30,15 @@ const projects: Project[] = [
 ];
 
 const navItems = [
-  { icon: Layers, label: "Projects", active: true },
-  { icon: Settings, label: "Settings" },
-  { icon: FileText, label: "Docs" },
+  { icon: Layers, label: "Projects", id: "projects" },
+  { icon: Settings, label: "Settings", id: "settings" },
+  { icon: FileText, label: "Docs", id: "docs" },
 ];
+
+interface AppSidebarProps {
+  activeView: string;
+  onNavigate: (view: string) => void;
+}
 
 const sidebarVariants = {
   hidden: { x: -40, opacity: 0 },
@@ -49,7 +54,7 @@ const itemVariants = {
   visible: { x: 0, opacity: 1 },
 };
 
-export function AppSidebar() {
+export function AppSidebar({ activeView, onNavigate }: AppSidebarProps) {
   const [activeProject, setActiveProject] = useState("1");
 
   return (
@@ -61,20 +66,24 @@ export function AppSidebar() {
     >
       {/* Nav Section */}
       <div className="px-4 pt-6 pb-4 flex flex-col gap-0.5">
-        {navItems.map((item) => (
-          <motion.button
-            key={item.label}
-            variants={itemVariants}
-            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-medium transition-transform duration-150 ease-out will-change-transform hover:translate-x-[3px] active:scale-[0.98] ${
-              item.active
-                ? "bg-primary/10 text-primary shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.15)]"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-            }`}
-          >
-            <item.icon size={17} strokeWidth={item.active ? 2.2 : 1.8} />
-            <span>{item.label}</span>
-          </motion.button>
-        ))}
+        {navItems.map((item) => {
+          const isActive = activeView === item.id;
+          return (
+            <motion.button
+              key={item.label}
+              variants={itemVariants}
+              onClick={() => onNavigate(item.id)}
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-medium transition-transform duration-150 ease-out will-change-transform hover:translate-x-[3px] active:scale-[0.98] ${
+                isActive
+                  ? "bg-primary/10 text-primary shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.15)]"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+              }`}
+            >
+              <item.icon size={17} strokeWidth={isActive ? 2.2 : 1.8} />
+              <span>{item.label}</span>
+            </motion.button>
+          );
+        })}
       </div>
 
       {/* Divider */}
