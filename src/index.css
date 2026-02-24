@@ -208,6 +208,15 @@
   animation: cta-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Pulse animation for white CTA */
+@keyframes cta-pulse-white {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(0 0% 100% / 0.5); }
+  50% { box-shadow: 0 0 0 12px hsl(0 0% 100% / 0); }
+}
+.cta-pulse-white {
+  animation: cta-pulse-white 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* Active nav glow — enhanced */
 .nav-glow {
   box-shadow: 0 0 20px -2px hsl(221 83% 53% / 0.4);
