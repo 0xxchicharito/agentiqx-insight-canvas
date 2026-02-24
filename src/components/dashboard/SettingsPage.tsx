@@ -629,19 +629,96 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
             </motion.div>
           )}
 
-          {activeSection !== "general" && activeSection !== "mcp" && activeSection !== "apikeys" && activeSection !== "variables" && activeSection !== "shortcuts" && (
+          {activeSection === "messages" && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
+              className="space-y-6"
             >
-              <h2 className="text-[22px] font-semibold text-foreground tracking-tight mb-6">
-                {settingsNav.find(s => s.id === activeSection)?.label}
-              </h2>
-              <div className="rounded-2xl bg-card border border-border/50 p-10 text-center shadow-sm">
-                <p className="text-muted-foreground text-[13px]">
-                  Coming soon.
-                </p>
+              {/* Messages Banner */}
+              <div className="rounded-2xl overflow-hidden relative settings-banner-gradient">
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-3xl -top-10 -right-10" />
+                  <div className="absolute w-36 h-36 rounded-full bg-white/5 blur-3xl bottom-0 left-[20%]" />
+                </div>
+                <div className="relative z-10 px-7 py-6 flex items-center gap-5">
+                  <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                    <MessageSquare size={24} className="text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-white font-bold text-xl tracking-tight">Messages</h2>
+                    <p className="text-white/90 text-[13px] mt-0.5">
+                      Inspect, edit and remove messages to explore and refine model behaviors.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Messages Table */}
+              <div className="rounded-2xl border border-border/50 bg-card overflow-hidden shadow-sm">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[13px]">
+                    <thead>
+                      <tr className="border-b border-border/50 bg-muted/30">
+                        <th className="px-4 py-3 w-10"><input type="checkbox" className="rounded border-border" /></th>
+                        <th className="px-4 py-3 text-left font-semibold text-foreground/70 whitespace-nowrap">timestamp</th>
+                        <th className="px-4 py-3 text-left font-semibold text-foreground/70">text</th>
+                        <th className="px-4 py-3 text-left font-semibold text-foreground/70">sender</th>
+                        <th className="px-4 py-3 text-left font-semibold text-foreground/70 whitespace-nowrap">sender_name</th>
+                        <th className="px-4 py-3 text-left font-semibold text-foreground/70 whitespace-nowrap">session_id</th>
+                        <th className="px-4 py-3 text-left font-semibold text-foreground/70">files</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { ts: "2025-12-23 05:57:43 U", text: "Hello", sender: "User", senderName: "User", session: "21a09b49-21a7-4a61-979f-..." },
+                        { ts: "2025-12-23 05:57:44 U", text: "OpenAI API key is required", sender: "Language Model", senderName: "Language Model", session: "21a09b49-21a7-4a61-979f-..." },
+                        { ts: "2025-12-23 05:58:43 U", text: "OpenAI API key is required", sender: "Language Model", senderName: "Language Model", session: "21a09b49-21a7-4a61-979f-..." },
+                        { ts: "2025-12-23 05:58:43 U", text: "Hello", sender: "User", senderName: "User", session: "21a09b49-21a7-4a61-979f-..." },
+                        { ts: "2026-01-30 12:30:18 U", text: "Could not load CSV data fo...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-01-30 12:32:02 U", text: "Could not load CSV data fo...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-01-30 13:53:17 U", text: "Could not load CSV data fo...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-01-30 13:56:01 U", text: "Could not load CSV data fo...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-01-30 14:01:17 U", text: "Could not load CSV data fo...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-02-02 06:25:00 U", text: "Could not load CSV data fo...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "379b5755-435b-4f37-b685" },
+                        { ts: "2026-02-02 06:31:59 U", text: "Could not load CSV data fo...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "379b5755-435b-4f37-b685" },
+                        { ts: "2026-02-02 07:16:18 U", text: "Error running method \"add...", sender: "Session Updater", senderName: "Session Updater", session: "5f13e32a-da72-4540-984d-..." },
+                        { ts: "2026-02-02 10:39:30 U", text: "cannot access local variable...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-02-02 10:42:05 U", text: "cannot access local variable...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-02-02 12:16:00 U", text: "", sender: "", senderName: "", session: "" },
+                        { ts: "2026-02-03 07:53:55 U", text: "['invoice_date', 'amount du...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                        { ts: "2026-02-03 09:04:44 U", text: "Could not load API data for...", sender: "Feature Store Tool", senderName: "Feature Store Tool", session: "1bca6bb1-b406-4c95-8d17" },
+                      ].map((row, i) => (
+                        <tr key={i} className="border-b border-border/20 hover:bg-muted/20 transition-colors">
+                          <td className="px-4 py-3"><input type="checkbox" className="rounded border-border" /></td>
+                          <td className="px-4 py-3 text-muted-foreground whitespace-nowrap font-mono text-[11px]">{row.ts}</td>
+                          <td className="px-4 py-3 text-foreground max-w-[200px] truncate">{row.text}</td>
+                          <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">{row.sender}</td>
+                          <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">{row.senderName}</td>
+                          <td className="px-4 py-3 text-muted-foreground font-mono text-[11px] whitespace-nowrap">{row.session}</td>
+                          <td className="px-4 py-3 text-muted-foreground">📎</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Footer */}
+                <div className="px-5 py-3 border-t border-border/40 flex items-center justify-between text-[12px]">
+                  <div className="flex items-center gap-4">
+                    <button className="flex items-center gap-1.5 text-muted-foreground hover:text-destructive transition-colors">
+                      <Trash2 size={13} /> Remove
+                    </button>
+                    <button className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors">
+                      <RotateCcw size={13} /> Reset Columns
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <span>1 to 100 of 171</span>
+                    <span className="text-foreground/50 ml-2">Page 1 of 2</span>
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
