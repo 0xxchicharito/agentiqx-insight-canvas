@@ -30,14 +30,12 @@ export function AppHeader() {
 
       {/* Right Actions */}
       <div className="flex items-center gap-3">
-        <motion.button
-          whileHover={{ scale: 1.1, rotate: 15 }}
-          whileTap={{ scale: 0.9 }}
-          className="p-2.5 rounded-xl glass border hover:border-primary/30 text-muted-foreground hover:text-foreground transition-colors duration-200 relative"
+        <button
+          className="p-2.5 rounded-xl glass border hover:border-primary/30 text-muted-foreground hover:text-foreground transition-colors duration-200"
         >
           <Bell size={18} />
           
-        </motion.button>
+        </button>
 
         {/* Avatar with dropdown */}
         <div className="relative">
