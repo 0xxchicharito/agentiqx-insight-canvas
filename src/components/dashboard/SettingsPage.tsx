@@ -121,13 +121,11 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
               {/* Hero banner */}
               <motion.div
                 variants={fadeUp}
-                className="rounded-2xl overflow-hidden relative"
-                style={{ background: "linear-gradient(135deg, hsl(221 83% 48%), hsl(250 70% 50%), hsl(263 70% 55%))" }}
+                className="rounded-2xl overflow-hidden relative settings-banner-gradient"
               >
                 <div className="absolute inset-0 overflow-hidden">
                   <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-3xl -top-10 -right-10" />
-                  <div className="absolute w-36 h-36 rounded-full bg-[hsl(174_70%_45%/0.2)] blur-3xl bottom-0 left-[20%]" />
-                  <div className="absolute w-28 h-28 rounded-full bg-[hsl(38_92%_50%/0.15)] blur-2xl top-[40%] right-[30%]" />
+                  <div className="absolute w-36 h-36 rounded-full bg-white/5 blur-3xl bottom-0 left-[20%]" />
                 </div>
                 <div className="relative z-10 px-7 py-6 flex items-center gap-5">
                   <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
