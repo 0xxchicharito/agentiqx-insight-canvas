@@ -143,7 +143,7 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
         </motion.nav>
 
         {/* Content */}
-        <div className="flex-1 max-w-2xl">
+        <div className="flex-1 min-w-0">
           {activeSection === "general" && (
             <motion.div
               variants={stagger}
