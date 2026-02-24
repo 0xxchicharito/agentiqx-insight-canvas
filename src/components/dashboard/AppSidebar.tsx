@@ -64,9 +64,7 @@ export function AppSidebar() {
           <motion.button
             key={item.label}
             variants={itemVariants}
-            whileHover={{ x: 3 }}
-            whileTap={{ scale: 0.98 }}
-            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 ${
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-medium transition-transform duration-150 ease-out will-change-transform hover:translate-x-[3px] active:scale-[0.98] ${
               item.active
                 ? "bg-primary/10 text-primary shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.15)]"
                 : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
@@ -86,13 +84,11 @@ export function AppSidebar() {
         <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground/70">
           Projects
         </span>
-        <motion.button
-          whileHover={{ rotate: 90, scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="p-1 rounded-md hover:bg-accent text-muted-foreground/60 hover:text-primary transition-all duration-200"
+        <button
+          className="p-1 rounded-md hover:bg-accent text-muted-foreground/60 hover:text-primary transition-all duration-150 ease-out will-change-transform hover:rotate-90 hover:scale-110 active:scale-90"
         >
           <Plus size={13} strokeWidth={2.5} />
-        </motion.button>
+        </button>
       </motion.div>
 
       {/* Project List */}
@@ -103,10 +99,8 @@ export function AppSidebar() {
             <motion.button
               key={project.id}
               variants={itemVariants}
-              whileHover={{ x: 3 }}
-              whileTap={{ scale: 0.98 }}
               onClick={() => setActiveProject(project.id)}
-              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13px] transition-all duration-200 group ${
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13px] transition-transform duration-150 ease-out will-change-transform hover:translate-x-[3px] active:scale-[0.98] group ${
                 isActive
                   ? "bg-primary/10 text-primary font-medium shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.15)]"
                   : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
