@@ -142,7 +142,7 @@ export function FlowList() {
         <motion.button
           whileHover={{ scale: 1.04, y: -1 }}
           whileTap={{ scale: 0.96 }}
-          className="ml-auto flex items-center gap-2 h-10 px-5 rounded-xl cat-workflow-gradient text-primary-foreground text-sm font-semibold cta-pulse shadow-lg"
+          className="ml-auto flex items-center gap-2 h-10 px-5 rounded-xl bg-[hsl(211_100%_50%)] hover:bg-[hsl(211_100%_45%)] text-primary-foreground text-sm font-semibold shadow-lg transition-colors duration-200"
         >
           <Plus size={16} />
           New Flow
