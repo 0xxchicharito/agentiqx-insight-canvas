@@ -494,7 +494,56 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
             </motion.div>
           )}
 
-          {activeSection !== "general" && activeSection !== "mcp" && activeSection !== "apikeys" && (
+          {activeSection === "variables" && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6"
+            >
+              {/* Global Variables Banner */}
+              <div className="rounded-2xl overflow-hidden relative settings-banner-gradient">
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-3xl -top-10 -right-10" />
+                  <div className="absolute w-36 h-36 rounded-full bg-white/5 blur-3xl bottom-0 left-[20%]" />
+                </div>
+                <div className="relative z-10 px-7 py-6 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                      <Globe size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-white font-bold text-xl tracking-tight">Global Variables</h2>
+                      <p className="text-white/90 text-[13px] mt-0.5">
+                        Manage global variables and assign them to fields.
+                      </p>
+                    </div>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.04, y: -1 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="h-10 px-5 rounded-xl bg-white text-primary text-[13px] font-semibold shadow-lg flex items-center gap-2 hover:bg-white/90 transition-colors duration-200 cta-pulse-white flex-shrink-0"
+                  >
+                    <Plus size={16} />
+                    Add New Variable
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* Empty state */}
+              <div className="rounded-2xl border border-border/50 bg-card min-h-[450px] flex flex-col items-center justify-center text-center p-10 shadow-sm">
+                <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mb-5">
+                  <Globe size={28} className="text-muted-foreground/30" />
+                </div>
+                <h3 className="text-base font-semibold text-foreground mb-1">No Data Available</h3>
+                <p className="text-[13px] text-muted-foreground max-w-sm">
+                  Oops! It seems there's no data to display right now. Please check back later.
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {activeSection !== "general" && activeSection !== "mcp" && activeSection !== "apikeys" && activeSection !== "variables" && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
