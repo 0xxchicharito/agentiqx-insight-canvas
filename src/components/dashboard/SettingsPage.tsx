@@ -349,9 +349,9 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
                     </div>
                   </div>
                   <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="h-10 px-5 rounded-xl bg-white text-primary text-[13px] font-semibold shadow-lg flex items-center gap-2 hover:bg-white/90 transition-colors"
+                    whileHover={{ scale: 1.04, y: -1 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="h-10 px-5 rounded-xl bg-[hsl(211_100%_50%)] hover:bg-[hsl(211_100%_45%)] text-primary-foreground text-[13px] font-semibold cta-pulse shadow-lg flex items-center gap-2 transition-colors duration-200"
                   >
                     <Plus size={16} />
                     Add MCP Server
