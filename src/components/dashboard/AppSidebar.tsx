@@ -114,17 +114,6 @@ export function AppSidebar() {
           </motion.button>
         ))}
       </nav>
-
-      {/* Bottom */}
-      <motion.div variants={itemVariants} className="border-t border-border/50 px-4 py-4">
-        <motion.button
-          whileHover={{ x: 4 }}
-          className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <FileText size={16} />
-          <span>My Files</span>
-        </motion.button>
-      </motion.div>
     </motion.aside>
   );
 }
