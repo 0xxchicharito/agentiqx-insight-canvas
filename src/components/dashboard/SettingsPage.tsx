@@ -13,17 +13,19 @@ import {
   Shield,
   Headphones,
   Phone,
-  ChevronRight,
   User,
+  Lock,
+  ImagePlus,
+  Sparkles,
 } from "lucide-react";
 
 const settingsNav = [
-  { id: "general", label: "General", icon: SlidersHorizontal },
-  { id: "mcp", label: "MCP Servers", icon: Server },
-  { id: "apikeys", label: "AgentIQX API Keys", icon: Key },
-  { id: "variables", label: "Global Variables", icon: Globe },
-  { id: "shortcuts", label: "Shortcuts", icon: Keyboard },
-  { id: "messages", label: "Messages", icon: MessageSquare },
+  { id: "general", label: "General", icon: SlidersHorizontal, gradient: "cat-workflow-gradient" },
+  { id: "mcp", label: "MCP Servers", icon: Server, gradient: "cat-recommend-gradient" },
+  { id: "apikeys", label: "AgentIQX API Keys", icon: Key, gradient: "cat-risk-gradient" },
+  { id: "variables", label: "Global Variables", icon: Globe, gradient: "cat-chatbot-gradient" },
+  { id: "shortcuts", label: "Shortcuts", icon: Keyboard, gradient: "cat-workflow-gradient" },
+  { id: "messages", label: "Messages", icon: MessageSquare, gradient: "cat-recommend-gradient" },
 ];
 
 const peopleAvatars = [
@@ -40,6 +42,16 @@ interface SettingsPageProps {
   onBack: () => void;
 }
 
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
+};
+
 export function SettingsPage({ onBack }: SettingsPageProps) {
   const [activeSection, setActiveSection] = useState("general");
   const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
@@ -47,8 +59,8 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <div className="flex-1 min-h-full overflow-y-auto bg-background/50">
-      {/* Minimal header */}
+    <div className="flex-1 min-h-full overflow-y-auto">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -57,23 +69,26 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
       >
         <button
           onClick={onBack}
-          className="flex items-center gap-1.5 text-primary text-[13px] font-medium hover:opacity-70 transition-opacity mb-6"
+          className="flex items-center gap-1.5 text-primary text-[13px] font-medium hover:opacity-70 transition-opacity mb-5"
         >
           <ArrowLeft size={15} />
           Projects
         </button>
-        <h1 className="text-[32px] font-bold text-foreground tracking-tight leading-none">
+        <h1 className="text-[28px] font-bold text-foreground tracking-tight text-shimmer">
           Settings
         </h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Manage the general settings for AgentIQX.
+        </p>
       </motion.div>
 
-      <div className="flex px-10 pb-12 gap-10">
-        {/* Left nav — Apple-style grouped list */}
+      <div className="flex px-10 pb-12 gap-8">
+        {/* Left nav — colored icon badges */}
         <motion.nav
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1, duration: 0.4 }}
-          className="w-[220px] min-w-[220px] space-y-0.5 h-fit sticky top-8"
+          initial={{ opacity: 0, x: -16 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.15, duration: 0.4 }}
+          className="w-[220px] min-w-[220px] space-y-1 h-fit sticky top-8"
         >
           {settingsNav.map((item) => {
             const isActive = activeSection === item.id;
@@ -81,13 +96,15 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
               <button
                 key={item.id}
                 onClick={() => setActiveSection(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] transition-colors duration-150 ${
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] transition-all duration-200 group ${
                   isActive
-                    ? "bg-primary text-primary-foreground font-medium"
-                    : "text-foreground/70 hover:bg-muted/60 font-normal"
+                    ? "bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.15)]"
+                    : "text-foreground/65 hover:bg-muted/50 hover:text-foreground font-medium"
                 }`}
               >
-                <item.icon size={16} strokeWidth={1.6} />
+                <div className={`w-7 h-7 rounded-lg ${item.gradient} flex items-center justify-center flex-shrink-0 shadow-sm transition-transform duration-200 group-hover:scale-110`}>
+                  <item.icon size={14} className="text-white" strokeWidth={2} />
+                </div>
                 {item.label}
               </button>
             );
@@ -98,113 +115,157 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
         <div className="flex-1 max-w-2xl">
           {activeSection === "general" && (
             <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-8"
+              variants={stagger}
+              initial="hidden"
+              animate="visible"
+              className="space-y-6"
             >
-              {/* Profile section */}
-              <section>
-                <h2 className="text-[22px] font-semibold text-foreground tracking-tight mb-1">
-                  Profile Picture
-                </h2>
-                <p className="text-[13px] text-muted-foreground mb-6">
-                  Select an image to use as your profile picture.
-                </p>
-
-                {/* Current avatar display */}
-                <div className="flex items-center gap-5 mb-8">
-                  <div className="w-[72px] h-[72px] rounded-full bg-muted flex items-center justify-center text-3xl ring-4 ring-background shadow-sm">
-                    {selectedAvatar || <User size={30} className="text-muted-foreground/30" />}
+              {/* Hero banner */}
+              <motion.div
+                variants={fadeUp}
+                className="rounded-2xl overflow-hidden relative"
+                style={{ background: "linear-gradient(135deg, hsl(221 83% 48%), hsl(250 70% 50%), hsl(263 70% 55%))" }}
+              >
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-3xl -top-10 -right-10" />
+                  <div className="absolute w-36 h-36 rounded-full bg-[hsl(174_70%_45%/0.2)] blur-3xl bottom-0 left-[20%]" />
+                  <div className="absolute w-28 h-28 rounded-full bg-[hsl(38_92%_50%/0.15)] blur-2xl top-[40%] right-[30%]" />
+                </div>
+                <div className="relative z-10 px-7 py-6 flex items-center gap-5">
+                  <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                    <SlidersHorizontal size={24} className="text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground">
-                      {selectedAvatar ? "Avatar selected" : "No avatar chosen"}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      Pick one from the collections below
+                    <h2 className="text-white font-bold text-xl tracking-tight">General</h2>
+                    <p className="text-white/60 text-[13px] mt-0.5">
+                      Manage your account and AgentIQX preferences in one place.
                     </p>
                   </div>
                 </div>
+              </motion.div>
 
-                {/* Grouped card — Apple settings style */}
-                <div className="rounded-xl bg-card border border-border/50 overflow-hidden shadow-sm">
-                  {/* People row */}
-                  <div className="px-5 py-4">
-                    <p className="text-[13px] font-medium text-foreground mb-3">People</p>
-                    <div className="flex flex-wrap gap-2.5">
+              {/* Profile Picture section */}
+              <motion.div variants={fadeUp}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg cat-recommend-gradient flex items-center justify-center shadow-sm">
+                    <ImagePlus size={15} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-[15px] font-semibold text-foreground">Profile Picture</h3>
+                    <p className="text-[12px] text-muted-foreground">Select an image to use as your profile picture</p>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl bg-card border border-border/50 overflow-hidden shadow-sm">
+                  {/* Current avatar + indicator */}
+                  <div className="px-6 py-5 flex items-center gap-5 bg-gradient-to-r from-primary/5 via-transparent to-[hsl(263_70%_58%/0.05)]">
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl transition-all duration-300 ${
+                      selectedAvatar 
+                        ? "bg-primary/10 ring-2 ring-primary/40 shadow-[0_0_24px_hsl(var(--primary)/0.2)]" 
+                        : "bg-muted border-2 border-dashed border-border"
+                    }`}>
+                      {selectedAvatar || <User size={26} className="text-muted-foreground/30" />}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-foreground">
+                        {selectedAvatar ? "Looking good! 🎉" : "No avatar chosen"}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Pick one from the collections below
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border/40" />
+
+                  {/* People */}
+                  <div className="px-6 py-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-1.5 h-4 rounded-full cat-workflow-gradient" />
+                      <p className="text-[12px] font-semibold text-foreground/70 uppercase tracking-wider">People</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
                       {peopleAvatars.map((avatar, i) => (
-                        <button
+                        <motion.button
                           key={`p-${i}`}
+                          whileHover={{ scale: 1.15, y: -3 }}
+                          whileTap={{ scale: 0.92 }}
                           onClick={() => setSelectedAvatar(avatar)}
-                          className={`w-11 h-11 rounded-full flex items-center justify-center text-lg transition-all duration-150 ${
+                          className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-150 ${
                             selectedAvatar === avatar
-                              ? "ring-[2.5px] ring-primary bg-primary/8 scale-110"
-                              : "bg-secondary hover:bg-muted hover:scale-105"
+                              ? "ring-2 ring-primary bg-primary/10 shadow-[0_0_12px_hsl(var(--primary)/0.3)]"
+                              : "bg-muted/40 hover:bg-accent ring-1 ring-transparent hover:ring-primary/20"
                           }`}
                         >
                           {avatar}
-                        </button>
+                        </motion.button>
                       ))}
                     </div>
                   </div>
 
-                  {/* Divider */}
-                  <div className="h-px bg-border/50 mx-5" />
+                  <div className="h-px bg-border/40 mx-6" />
 
-                  {/* Space row */}
-                  <div className="px-5 py-4">
-                    <p className="text-[13px] font-medium text-foreground mb-3">Space</p>
-                    <div className="flex flex-wrap gap-2.5">
+                  {/* Space */}
+                  <div className="px-6 py-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-1.5 h-4 rounded-full cat-chatbot-gradient" />
+                      <p className="text-[12px] font-semibold text-foreground/70 uppercase tracking-wider">Space</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
                       {spaceAvatars.map((avatar, i) => (
-                        <button
+                        <motion.button
                           key={`s-${i}`}
+                          whileHover={{ scale: 1.15, y: -3 }}
+                          whileTap={{ scale: 0.92 }}
                           onClick={() => setSelectedAvatar(avatar)}
-                          className={`w-11 h-11 rounded-full flex items-center justify-center text-lg transition-all duration-150 ${
+                          className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-150 ${
                             selectedAvatar === avatar
-                              ? "ring-[2.5px] ring-primary bg-primary/8 scale-110"
-                              : "bg-secondary hover:bg-muted hover:scale-105"
+                              ? "ring-2 ring-primary bg-primary/10 shadow-[0_0_12px_hsl(var(--primary)/0.3)]"
+                              : "bg-muted/40 hover:bg-accent ring-1 ring-transparent hover:ring-primary/20"
                           }`}
                         >
                           {avatar}
-                        </button>
+                        </motion.button>
                       ))}
                     </div>
                   </div>
 
-                  {/* Save action — bottom strip */}
-                  <div className="h-px bg-border/50" />
-                  <div className="px-5 py-3 flex justify-end bg-muted/20">
-                    <button className="h-8 px-4 rounded-lg bg-primary text-primary-foreground text-[13px] font-medium hover:bg-primary/90 transition-colors">
+                  <div className="h-px bg-border/40" />
+                  <div className="px-6 py-3 flex justify-end">
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="h-9 px-5 rounded-xl bg-[hsl(211_100%_50%)] hover:bg-[hsl(211_100%_45%)] text-primary-foreground text-[13px] font-semibold shadow-md shadow-primary/25 transition-colors"
+                    >
                       Save
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
-              </section>
-
-              {/* Divider */}
-              <div className="h-px bg-border/40" />
+              </motion.div>
 
               {/* Password section */}
-              <section>
-                <h2 className="text-[22px] font-semibold text-foreground tracking-tight mb-1">
-                  Password
-                </h2>
-                <p className="text-[13px] text-muted-foreground mb-6">
-                  Type your new password and confirm it.
-                </p>
+              <motion.div variants={fadeUp}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg cat-risk-gradient flex items-center justify-center shadow-sm">
+                    <Lock size={15} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-[15px] font-semibold text-foreground">Password</h3>
+                    <p className="text-[12px] text-muted-foreground">Type your new password and confirm it</p>
+                  </div>
+                </div>
 
-                <div className="rounded-xl bg-card border border-border/50 overflow-hidden shadow-sm">
+                <div className="rounded-2xl bg-card border border-border/50 overflow-hidden shadow-sm">
                   {/* Password field */}
-                  <div className="px-5 py-4 flex items-center justify-between gap-4">
-                    <label className="text-[13px] text-foreground font-medium w-[140px] flex-shrink-0">
+                  <div className="px-6 py-4 flex items-center gap-4">
+                    <label className="text-[13px] text-foreground font-medium w-[130px] flex-shrink-0">
                       New Password
                     </label>
                     <div className="flex-1 relative">
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter password"
-                        className="w-full px-3.5 py-2 rounded-lg border border-border/60 bg-background text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-border/50 bg-muted/20 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/30 transition-all"
                       />
                       <button
                         onClick={() => setShowPassword(!showPassword)}
@@ -215,18 +276,18 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
                     </div>
                   </div>
 
-                  <div className="h-px bg-border/50 mx-5" />
+                  <div className="h-px bg-border/40 mx-6" />
 
                   {/* Confirm field */}
-                  <div className="px-5 py-4 flex items-center justify-between gap-4">
-                    <label className="text-[13px] text-foreground font-medium w-[140px] flex-shrink-0">
+                  <div className="px-6 py-4 flex items-center gap-4">
+                    <label className="text-[13px] text-foreground font-medium w-[130px] flex-shrink-0">
                       Confirm
                     </label>
                     <div className="flex-1 relative">
                       <input
                         type={showConfirm ? "text" : "password"}
                         placeholder="Confirm password"
-                        className="w-full px-3.5 py-2 rounded-lg border border-border/60 bg-background text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-border/50 bg-muted/20 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary/30 transition-all"
                       />
                       <button
                         onClick={() => setShowConfirm(!showConfirm)}
@@ -237,27 +298,31 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
                     </div>
                   </div>
 
-                  <div className="h-px bg-border/50" />
-                  <div className="px-5 py-3 flex justify-end bg-muted/20">
-                    <button className="h-8 px-4 rounded-lg bg-primary text-primary-foreground text-[13px] font-medium hover:bg-primary/90 transition-colors">
+                  <div className="h-px bg-border/40" />
+                  <div className="px-6 py-3 flex justify-end">
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="h-9 px-5 rounded-xl bg-[hsl(211_100%_50%)] hover:bg-[hsl(211_100%_45%)] text-primary-foreground text-[13px] font-semibold shadow-md shadow-primary/25 transition-colors"
+                    >
                       Update
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
-              </section>
+              </motion.div>
 
               {/* Footer */}
-              <div className="flex items-center gap-5 pt-4 pb-6 text-[12px] text-muted-foreground/40">
-                <a href="#" className="flex items-center gap-1 hover:text-muted-foreground transition-colors">
-                  <Shield size={11} /> Privacy Policy
+              <motion.div variants={fadeUp} className="flex items-center gap-6 pt-4 pb-6 text-[12px] text-muted-foreground/40">
+                <a href="#" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+                  <Shield size={12} /> Privacy Policy
                 </a>
-                <a href="#" className="flex items-center gap-1 hover:text-muted-foreground transition-colors">
-                  <Headphones size={11} /> User Support
+                <a href="#" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+                  <Headphones size={12} /> User Support
                 </a>
-                <a href="#" className="flex items-center gap-1 hover:text-muted-foreground transition-colors">
-                  <Phone size={11} /> Contact Us
+                <a href="#" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+                  <Phone size={12} /> Contact Us
                 </a>
-              </div>
+              </motion.div>
             </motion.div>
           )}
 
@@ -270,7 +335,7 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
               <h2 className="text-[22px] font-semibold text-foreground tracking-tight mb-6">
                 {settingsNav.find(s => s.id === activeSection)?.label}
               </h2>
-              <div className="rounded-xl bg-card border border-border/50 p-10 text-center shadow-sm">
+              <div className="rounded-2xl bg-card border border-border/50 p-10 text-center shadow-sm">
                 <p className="text-muted-foreground text-[13px]">
                   Coming soon.
                 </p>
