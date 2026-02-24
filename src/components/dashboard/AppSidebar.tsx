@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   Layers,
   Plus,
@@ -24,16 +25,38 @@ const navItems = [
   { icon: FileText, label: "Docs" },
 ];
 
+const sidebarVariants = {
+  hidden: { x: -40, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: "easeOut" as const, staggerChildren: 0.05 },
+  },
+};
+
+const itemVariants = {
+  hidden: { x: -20, opacity: 0 },
+  visible: { x: 0, opacity: 1 },
+};
+
 export function AppSidebar() {
   const [activeProject, setActiveProject] = useState("1");
 
   return (
-    <aside className="w-[280px] min-w-[280px] glass border-r flex flex-col h-full">
+    <motion.aside
+      initial="hidden"
+      animate="visible"
+      variants={sidebarVariants}
+      className="w-[280px] min-w-[280px] glass border-r flex flex-col h-full"
+    >
       {/* Nav Icons */}
       <div className="px-4 pt-5 pb-3 flex flex-col gap-1">
-        {navItems.map((item) => (
-          <button
+        {navItems.map((item, i) => (
+          <motion.button
             key={item.label}
+            variants={itemVariants}
+            whileHover={{ x: 4 }}
+            whileTap={{ scale: 0.97 }}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
               item.active
                 ? "nav-glow text-primary"
@@ -42,24 +65,31 @@ export function AppSidebar() {
           >
             <item.icon size={18} />
             <span>{item.label}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
 
       <div className="h-px bg-border mx-4 my-2" />
 
       {/* Projects Section */}
-      <div className="px-4 pt-2 pb-2 flex items-center justify-between">
+      <motion.div variants={itemVariants} className="px-4 pt-2 pb-2 flex items-center justify-between">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Projects</span>
-        <button className="p-1.5 rounded-lg hover:bg-accent text-muted-foreground hover:text-primary transition-all duration-200">
+        <motion.button
+          whileHover={{ rotate: 90, scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="p-1.5 rounded-lg hover:bg-accent text-muted-foreground hover:text-primary transition-all duration-200"
+        >
           <Plus size={14} />
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
         {projects.map((project) => (
-          <button
+          <motion.button
             key={project.id}
+            variants={itemVariants}
+            whileHover={{ x: 4 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => setActiveProject(project.id)}
             className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all duration-200 group ${
               activeProject === project.id
@@ -68,7 +98,9 @@ export function AppSidebar() {
             }`}
           >
             <div className="flex items-center gap-2.5 truncate">
-              <div
+              <motion.div
+                animate={activeProject === project.id ? { scale: [1, 1.3, 1] } : {}}
+                transition={{ duration: 0.4 }}
                 className={`w-2 h-2 rounded-full flex-shrink-0 ${
                   activeProject === project.id ? "cat-workflow-gradient" : "bg-muted"
                 }`}
@@ -79,17 +111,20 @@ export function AppSidebar() {
               size={14}
               className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground"
             />
-          </button>
+          </motion.button>
         ))}
       </nav>
 
       {/* Bottom */}
-      <div className="border-t border-border/50 px-4 py-4">
-        <button className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+      <motion.div variants={itemVariants} className="border-t border-border/50 px-4 py-4">
+        <motion.button
+          whileHover={{ x: 4 }}
+          className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
           <FileText size={16} />
           <span>My Files</span>
-        </button>
-      </div>
-    </aside>
+        </motion.button>
+      </motion.div>
+    </motion.aside>
   );
 }
