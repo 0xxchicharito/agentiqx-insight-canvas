@@ -59,6 +59,12 @@ export function AppHeader() {
                   transition={{ duration: 0.15, ease: "easeOut" }}
                   className="absolute right-0 mt-2 w-48 rounded-xl bg-card border border-border shadow-xl z-50 py-1.5"
                 >
+                  {/* Version row */}
+                  <div className="px-4 py-2.5 flex items-center justify-between">
+                    <span className="text-sm text-foreground font-medium">Version</span>
+                    <span className="text-xs font-medium text-primary">0.5.0.post2 (latest)</span>
+                  </div>
+                  <div className="h-px bg-border mx-2" />
                   {/* Theme toggle row */}
                   <div className="px-4 py-2.5 flex items-center justify-between">
                     <span className="text-sm text-foreground font-medium">Theme</span>
