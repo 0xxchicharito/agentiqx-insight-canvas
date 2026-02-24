@@ -18,6 +18,10 @@ import {
   Lock,
   ImagePlus,
   Sparkles,
+  Trash2,
+  RotateCcw,
+  Copy,
+  Check,
 } from "lucide-react";
 
 const settingsNav = [
@@ -52,6 +56,34 @@ const fadeUp = {
   hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
 };
+
+function ApiKeyRow({ name, keyValue, created, lastUsed, totalUses }: {
+  name: string; keyValue: string; created: string; lastUsed: string; totalUses: number;
+}) {
+  const [copied, setCopied] = useState(false);
+  const masked = `${keyValue}${"*".repeat(16)}`;
+
+  const handleCopy = () => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <tr className="border-b border-border/30 hover:bg-muted/30 transition-colors">
+      <td className="px-5 py-3"><input type="checkbox" className="rounded border-border" /></td>
+      <td className="px-4 py-3 font-medium text-foreground">{name}</td>
+      <td className="px-4 py-3 text-muted-foreground font-mono text-[12px] flex items-center gap-2">
+        {masked}
+        <button onClick={handleCopy} className="text-muted-foreground/50 hover:text-primary transition-colors">
+          {copied ? <Check size={13} className="text-primary" /> : <Copy size={13} />}
+        </button>
+      </td>
+      <td className="px-4 py-3 text-muted-foreground">{created}</td>
+      <td className="px-4 py-3 text-muted-foreground">{lastUsed}</td>
+      <td className="px-4 py-3 text-foreground font-medium">{totalUses}</td>
+    </tr>
+  );
+}
 
 export function SettingsPage({ onBack }: SettingsPageProps) {
   const [activeSection, setActiveSection] = useState("general");
@@ -372,7 +404,97 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
             </motion.div>
           )}
 
-          {activeSection !== "general" && activeSection !== "mcp" && (
+          {activeSection === "apikeys" && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6"
+            >
+              {/* API Keys Banner */}
+              <div className="rounded-2xl overflow-hidden relative settings-banner-gradient">
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute w-48 h-48 rounded-full bg-white/10 blur-3xl -top-10 -right-10" />
+                  <div className="absolute w-36 h-36 rounded-full bg-white/5 blur-3xl bottom-0 left-[20%]" />
+                </div>
+                <div className="relative z-10 px-7 py-6 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                      <Key size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-white font-bold text-xl tracking-tight">AgentIQX API Keys</h2>
+                      <p className="text-white/90 text-[13px] mt-0.5 max-w-md">
+                        Your secret AgentIQX API keys are listed below. Do not share your API key with others, or expose it in the browser or other client-side code.
+                      </p>
+                    </div>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.04, y: -1 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="h-10 px-5 rounded-xl bg-white text-primary text-[13px] font-semibold shadow-lg flex items-center gap-2 hover:bg-white/90 transition-colors duration-200 cta-pulse-white flex-shrink-0"
+                  >
+                    <Plus size={16} />
+                    Generate API Key
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* API Keys Table */}
+              <div className="rounded-2xl border border-border/50 bg-card overflow-hidden shadow-sm">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[13px]">
+                    <thead>
+                      <tr className="border-b border-border/50">
+                        <th className="text-left font-semibold text-foreground/70 px-5 py-3 w-8">
+                          <input type="checkbox" className="rounded border-border" />
+                        </th>
+                        <th className="text-left font-semibold text-foreground/70 px-4 py-3">Name</th>
+                        <th className="text-left font-semibold text-foreground/70 px-4 py-3">Key</th>
+                        <th className="text-left font-semibold text-foreground/70 px-4 py-3">Created</th>
+                        <th className="text-left font-semibold text-foreground/70 px-4 py-3">Last Used</th>
+                        <th className="text-left font-semibold text-foreground/70 px-4 py-3">Total Uses</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ApiKeyRow
+                        name="temp_key_01"
+                        keyValue="sk-oajbX"
+                        created="2025-11-27T12:47:24.84"
+                        lastUsed="2026-02-19 05:54:43"
+                        totalUses={66}
+                      />
+                      <ApiKeyRow
+                        name="runkey"
+                        keyValue="sk-Vsxj0"
+                        created="2026-01-17T06:53:17.27"
+                        lastUsed="2026-02-24 06:52:27"
+                        totalUses={1001}
+                      />
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Table footer */}
+                <div className="border-t border-border/50 px-5 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <button className="flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-destructive transition-colors">
+                      <Trash2 size={13} /> Remove
+                    </button>
+                    <button className="flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors">
+                      <RotateCcw size={13} /> Reset Columns
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
+                    <span>1 to 2 of 2</span>
+                    <span className="text-foreground/50 ml-2">Page 1 of 1</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {activeSection !== "general" && activeSection !== "mcp" && activeSection !== "apikeys" && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
